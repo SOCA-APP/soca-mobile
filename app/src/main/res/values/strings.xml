@@ -6,4 +6,6 @@
     <string name="password">Kata Sandi</string>
     <string name="register">Daftar</string>
     <string name="back_to_login"><u>Kembali ke Login</u></string>
+    <string name="login">Masuk</string>
+    <string name="create_new_account"><u>Buat Akun Baru</u></string>
 </resources>
