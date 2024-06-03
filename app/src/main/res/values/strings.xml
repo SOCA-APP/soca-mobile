@@ -8,4 +8,14 @@
     <string name="back_to_login"><u>Kembali ke Login</u></string>
     <string name="login">Masuk</string>
     <string name="create_new_account"><u>Buat Akun Baru</u></string>
+
+    <string name="howdy">Apa Kabar</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="canvas">Kanvas</string>
+    <string name="history">Riwayat</string>
+    <string name="favorite">Favorit</string>
+    <string name="logout">Keluar</string>
+    <string name="icon_menu_description">Icon Menu</string>
+    <string name="example_name">Doni Setiawan</string>
 </resources>
