@@ -1,6 +1,7 @@
 package com.lutfisobri.soca.ui
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -35,17 +36,30 @@ abstract class BaseActivity<T: ViewBinding>: AppCompatActivity() {
         startActivity(intent)
     }
 
+    protected fun <T: Parcelable> navTo(clazz: Class<*>, args: T) {
+        val intent = android.content.Intent(this, clazz)
+        intent.putExtra("args", args)
+        startActivity(intent)
+    }
+
+    protected fun <T: Parcelable> getArgs(): T? {
+        return intent.getParcelableExtra("args")
+    }
+
     protected fun navToFinish(clazz: Class<*>) {
         navTo(clazz)
         finish()
     }
 
-    protected fun appBar(title: String) {
-        findViewById<Toolbar>(R.id.toolbar).apply {
+    protected fun appBar(title: String, menu: Int? = null): Toolbar {
+        return findViewById<Toolbar>(R.id.toolbar).apply {
             setTitle(title)
             setNavigationIcon(R.drawable.back)
             setNavigationOnClickListener {
                 finish()
+            }
+            if (menu != null) {
+                inflateMenu(menu)
             }
         }
     }
