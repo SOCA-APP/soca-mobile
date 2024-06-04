@@ -1,21 +1,47 @@
 package com.lutfisobri.soca.ui.favorite
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.lutfisobri.soca.R
+import com.lutfisobri.soca.data.models.ItemResultModel
+import com.lutfisobri.soca.databinding.ActivityFavoriteBinding
+import com.lutfisobri.soca.ui.BaseActivity
+import com.lutfisobri.soca.ui.result.ResultActivity
 
-class FavoriteActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_favorite)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+class FavoriteActivity : BaseActivity<ActivityFavoriteBinding>() {
+    override fun init() {
+        val items = listOf(
+            ItemResultModel(
+                icon = R.drawable.ic_launcher_background,
+                title = "History 1"
+            ),
+            ItemResultModel(
+                icon = R.drawable.ic_launcher_background,
+                title = "History 2"
+            ),
+            ItemResultModel(
+                icon = R.drawable.ic_launcher_background,
+                title = "History 3"
+            ),
+            ItemResultModel(
+                icon = R.drawable.ic_launcher_background,
+                title = "History 4"
+            ),
+            ItemResultModel(
+                icon = R.drawable.ic_launcher_background,
+                title = "History 5"
+            ),
+        )
+
+        binding.rvHistory.adapter = getAdapter(items)
+
+        appBar(getString(R.string.favorite))
+    }
+
+    private fun getAdapter(items: List<ItemResultModel>): FavoriteAdapter {
+        val adapter = FavoriteAdapter(items)
+        adapter.onItemClick = { item ->
+            navTo(ResultActivity::class.java, item)
         }
+
+        return adapter
     }
 }
