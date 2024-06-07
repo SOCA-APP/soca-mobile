@@ -1,15 +1,15 @@
 package com.lutfisobri.soca.ui.login
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.lutfisobri.soca.R
+import com.lutfisobri.soca.databinding.ActivityLoginBinding
+import com.lutfisobri.soca.ui.BaseActivity
+import com.lutfisobri.soca.ui.register.RegisterActivity
 
-class LoginActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+class LoginActivity : BaseActivity<ActivityLoginBinding>() {
+    override fun init() {
+        with(binding) {
+            tvCreateAccount.setOnClickListener { navTo(RegisterActivity::class.java) }
+        }
     }
+
+    private fun doLogin() {}
 }

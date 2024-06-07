@@ -7,6 +7,7 @@ import com.lutfisobri.soca.ui.BaseActivity
 import com.lutfisobri.soca.ui.canvas.CanvasActivity
 import com.lutfisobri.soca.ui.favorite.FavoriteActivity
 import com.lutfisobri.soca.ui.history.HistoryActivity
+import com.lutfisobri.soca.ui.login.LoginActivity
 
 class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
     private lateinit var itemMenus: List<ItemMenuModel>
@@ -43,6 +44,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
         with(binding) {
             rvMenu.adapter = ItemMenuAdapter(itemMenus)
             tvName.text = getString(R.string.example_name)
+            toolbar.menu.findItem(R.id.action_logout).setOnMenuItemClickListener {
+                // TODO: show dialog confirmation
+                true
+            }
         }
     }
 
