@@ -1,5 +1,7 @@
 package com.lutfisobri.soca.ui.dashboard
 
+import android.app.Dialog
+import android.widget.Button
 import com.lutfisobri.soca.R
 import com.lutfisobri.soca.data.models.ItemMenuModel
 import com.lutfisobri.soca.databinding.ActivityDashboardBinding
@@ -7,6 +9,7 @@ import com.lutfisobri.soca.ui.BaseActivity
 import com.lutfisobri.soca.ui.canvas.CanvasActivity
 import com.lutfisobri.soca.ui.favorite.FavoriteActivity
 import com.lutfisobri.soca.ui.history.HistoryActivity
+import com.lutfisobri.soca.ui.login.LoginActivity
 
 class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
     private lateinit var itemMenus: List<ItemMenuModel>
@@ -43,6 +46,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
         with(binding) {
             rvMenu.adapter = ItemMenuAdapter(itemMenus)
             tvName.text = getString(R.string.example_name)
+            toolbar.menu.findItem(R.id.action_logout).setOnMenuItemClickListener {
+                showLogoutDialog()
+                true
+            }
         }
     }
 
@@ -60,5 +67,18 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
 
     private fun onFavoriteClick() {
         navTo(FavoriteActivity::class.java)
+    }
+
+    private fun showLogoutDialog() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_logout)
+        dialog.show()
+
+        dialog.findViewById<Button>(R.id.btnLogout)?.setOnClickListener {
+            navToFinish(LoginActivity::class.java)
+        }
+        dialog.findViewById<Button>(R.id.btnCancel)?.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 }
