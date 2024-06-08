@@ -22,4 +22,7 @@
     <string name="only_one_script">*Hanya 1 aksara</string>
     <string name="clear">Hapus</string>
     <string name="predict">Prediksi</string>
+
+    <string name="result">Hasil</string>
+    <string name="image_result_description">Hasil prediksi</string>
 </resources>

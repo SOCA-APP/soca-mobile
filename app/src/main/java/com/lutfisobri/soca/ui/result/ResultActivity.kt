@@ -1,21 +1,40 @@
 package com.lutfisobri.soca.ui.result
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.annotation.SuppressLint
 import com.lutfisobri.soca.R
+import com.lutfisobri.soca.data.models.ItemResultModel
+import com.lutfisobri.soca.databinding.ActivityResultBinding
+import com.lutfisobri.soca.ui.BaseActivity
 
-class ResultActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_result)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+class ResultActivity : BaseActivity<ActivityResultBinding>() {
+    @SuppressLint("UseCompatLoadingForDrawables")
+    override fun init() {
+        val menu = appBar(getString(R.string.result), R.menu.menu_result).menu
+
+        val item = getArgs<ItemResultModel>()
+        menu.findItem(R.id.menu_favorite).apply {
+            if (item != null) {
+                icon = if (item.isFavorite) getDrawable(R.drawable.star_filled) else getDrawable(R.drawable.star_outline)
+            }
+            setOnMenuItemClickListener {
+                if (item != null) {
+                    if (item.isFavorite) {
+                        item.isFavorite = false
+                        setIcon(R.drawable.star_outline)
+                    } else {
+                        item.isFavorite = true
+                        setIcon(R.drawable.star_filled)
+                    }
+                }
+                true
+            }
+        }
+
+        with(binding) {
+            if (item != null) {
+                imgResult.setImageResource(item.icon)
+                tvResult.text = item.title
+            }
         }
     }
 }
