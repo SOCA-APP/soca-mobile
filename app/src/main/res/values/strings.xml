@@ -9,6 +9,15 @@
     <string name="login">Masuk</string>
     <string name="create_new_account"><u>Buat Akun Baru</u></string>
 
+<!--    login   -->
+    <string name="error_email">Email wajib diisi</string>
+    <string name="error_password">Kata sandi wajib diisi</string>
+    <string name="error_password_length">Kata sandi minimal 6 karakter</string>
+    <string name="error_email_format">Format email tidak valid</string>
+
+<!--    register    -->
+    <string name="error_name">Nama wajib diisi</string>
+
     <string name="howdy">Apa Kabar</string>
     <string name="camera">Kamera</string>
     <string name="gallery">Galeri</string>
