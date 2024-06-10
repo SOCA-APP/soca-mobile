@@ -1,16 +1,12 @@
 package com.lutfisobri.soca.ui.splash
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.lutfisobri.soca.R
+import com.lutfisobri.soca.data.preference.auth.AuthPreference
 import com.lutfisobri.soca.databinding.ActivitySplashScreenBinding
 import com.lutfisobri.soca.ui.BaseActivity
 import com.lutfisobri.soca.ui.dashboard.DashboardActivity
+import com.lutfisobri.soca.ui.login.LoginActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -19,7 +15,15 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
     override fun init() {
         lifecycleScope.launch {
             delay(3000)
-            navToFinish(DashboardActivity::class.java)
+            if (isLogin())
+                navToFinish(DashboardActivity::class.java)
+            else
+            navToFinish(LoginActivity::class.java)
         }
+    }
+
+    private fun isLogin(): Boolean {
+        println(AuthPreference(this).getToken())
+        return AuthPreference(this).getToken() != null
     }
 }

@@ -68,4 +68,10 @@ dependencies {
 
     // glide
     implementation(libs.glide)
+
+    // jwt
+    implementation(libs.jwtdecode)
+
+    // Paging 3
+    implementation(libs.androidx.paging.runtime.ktx)
 }

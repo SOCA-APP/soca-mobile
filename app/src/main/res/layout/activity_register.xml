@@ -36,6 +36,17 @@
             android:inputType="textPersonName"/>
 
         <TextView
+            android:id="@+id/tv_name_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/error_name"
+            android:textSize="12sp"
+            android:textColor="@color/red"
+            android:fontFamily="@font/montserrat_light"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
@@ -58,6 +69,17 @@
             android:inputType="textEmailAddress"/>
 
         <TextView
+            android:id="@+id/tv_email_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/error_email"
+            android:textSize="12sp"
+            android:textColor="@color/red"
+            android:fontFamily="@font/montserrat_light"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
@@ -78,6 +100,17 @@
             android:paddingHorizontal="16dp"
             android:labelFor="@id/ed_password"
             android:inputType="textPassword"/>
+
+        <TextView
+            android:id="@+id/tv_password_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/error_password"
+            android:textSize="12sp"
+            android:textColor="@color/red"
+            android:fontFamily="@font/montserrat_light"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_register"
