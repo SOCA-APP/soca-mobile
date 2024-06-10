@@ -1,5 +1,6 @@
 package com.lutfisobri.soca.ui.dashboard
 
+import android.app.Dialog
 import android.widget.Button
 import com.lutfisobri.soca.R
 import com.lutfisobri.soca.data.models.ItemMenuModel
@@ -51,7 +52,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
             rvMenu.adapter = ItemMenuAdapter(itemMenus)
             tvName.text = viewModel.getUser().fullName
             toolbar.menu.findItem(R.id.action_logout).setOnMenuItemClickListener {
-                // TODO: show dialog confirmation
+                showLogoutDialog()
                 true
             }
         }

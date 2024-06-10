@@ -34,4 +34,8 @@
 
     <string name="result">Hasil</string>
     <string name="image_result_description">Hasil prediksi</string>
+
+    <string name="logout_confirmation">Apakah Anda yakin ingin keluar?</string>
+    <string name="ya">Ya</string>
+    <string name="cancel">Tidak</string>
 </resources>
