@@ -79,17 +79,17 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
     }
 
     private fun showLogoutDialog() {
-//        val dialog = Dialog(this)
-//        dialog.setContentView(R.layout.dialog_logout)
-//        dialog.show()
-//
-//        dialog.findViewById<Button>(R.id.btnLogout)?.setOnClickListener {
-//            viewModel.logout()
-//            dialog.dismiss()
-//            navToFinish(LoginActivity::class.java)
-//        }
-//        dialog.findViewById<Button>(R.id.btnCancel)?.setOnClickListener {
-//            dialog.dismiss()
-//        }
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_logout)
+        dialog.show()
+
+        dialog.findViewById<Button>(R.id.btnLogout)?.setOnClickListener {
+            viewModel.logout()
+            dialog.dismiss()
+            navToFinish(LoginActivity::class.java)
+        }
+        dialog.findViewById<Button>(R.id.btnCancel)?.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 }
