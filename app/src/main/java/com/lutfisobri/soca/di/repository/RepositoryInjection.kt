@@ -2,9 +2,11 @@ package com.lutfisobri.soca.di.repository
 
 import com.lutfisobri.soca.data.preference.auth.AuthPreference
 import com.lutfisobri.soca.data.repository.auth.AuthRepository
+import com.lutfisobri.soca.data.repository.canvas.CanvasRepository
 import com.lutfisobri.soca.data.repository.favorite.FavoriteRepository
 import com.lutfisobri.soca.data.repository.history.HistoryRepository
 import com.lutfisobri.soca.data.service.api.auth.AuthService
+import com.lutfisobri.soca.data.service.api.canvas.CanvasService
 import com.lutfisobri.soca.data.service.api.favorite.FavoriteService
 import com.lutfisobri.soca.data.service.api.history.HistoryService
 import com.lutfisobri.soca.di.network.NetworkInjection
@@ -23,5 +25,10 @@ object RepositoryInjection {
     fun provideFavoriteRepository(authPreference: AuthPreference): FavoriteRepository {
         val favoriteService = NetworkInjection(authPreference).createService(FavoriteService::class.java)
         return FavoriteRepository(favoriteService)
+    }
+
+    fun provideCanvasRepository(authPreference: AuthPreference): CanvasRepository {
+        val canvasService = NetworkInjection(authPreference).canvasService()
+        return CanvasRepository(canvasService)
     }
 }
