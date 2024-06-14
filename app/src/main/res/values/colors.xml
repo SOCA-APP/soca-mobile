@@ -4,8 +4,4 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background_splash_screen">#344C64</color>
-    <color name="blue">#19A7CE</color>
-    <color name="primary_gray">#9C9C9C</color>
-    <color name="secondary_gray">#F1F0F5</color>
-    <color name="red">#FD4F56</color>
 </resources>
