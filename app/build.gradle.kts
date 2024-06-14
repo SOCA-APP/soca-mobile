@@ -51,7 +51,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Signature Pad
-    implementation(libs.signature.pad)
+    implementation(libs.android.signaturepad)
 
     // uCrop
     implementation(libs.ucrop)
