@@ -2,17 +2,26 @@ package com.lutfisobri.soca.ui.canvas
 
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import androidx.appcompat.app.AlertDialog
 import com.lutfisobri.soca.R
 import com.lutfisobri.soca.data.preference.auth.AuthPreference
 import com.lutfisobri.soca.databinding.ActivityCanvasBinding
 import com.lutfisobri.soca.ui.BaseActivity
 import com.lutfisobri.soca.ui.result.ResultActivity
-import com.lutfisobri.soca.utils.gone
 import java.io.File
 import java.io.FileOutputStream
 
 class CanvasActivity : BaseActivity<ActivityCanvasBinding>() {
     private val viewModel by lazy { CanvasViewModel(AuthPreference(this)) }
+    private lateinit var progressDialog: AlertDialog
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupProgressDialog()
+    }
 
     override fun init() {
         appBar(getString(R.string.canvas))
@@ -23,17 +32,21 @@ class CanvasActivity : BaseActivity<ActivityCanvasBinding>() {
             predict.setOnClickListener { predict() }
         }
 
-        viewModel.predict.observe(this) {
-            navTo(ResultActivity::class.java, it)
+        viewModel.predict.observe(this) { result ->
+            dismissProgressDialog()
+            val resultMessage = result.toString()
+            showPredictionDialog(resultMessage)
         }
     }
 
     private fun predict() {
-        with(binding) {
-            val bitmap = signaturePad.signatureBitmap
+        showProgressDialog()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            val bitmap = binding.signaturePad.signatureBitmap
             val file = saveBitmapToFile(bitmap)
             viewModel.predict(file)
-        }
+        }, 2000)
     }
 
     private fun saveBitmapToFile(bitmap: Bitmap): Uri {
@@ -44,5 +57,33 @@ class CanvasActivity : BaseActivity<ActivityCanvasBinding>() {
         outputStream.flush()
         outputStream.close()
         return Uri.fromFile(file)
+    }
+
+    private fun setupProgressDialog() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.progress_dialog, null)
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        progressDialog = builder.create()
+    }
+
+    private fun showProgressDialog() {
+        progressDialog.show()
+    }
+
+    private fun dismissProgressDialog() {
+        progressDialog.dismiss()
+    }
+
+    private fun showPredictionDialog(message: String) {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.prediction_title))
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+                navTo(ResultActivity::class.java)
+            }
+            .show()
     }
 }
