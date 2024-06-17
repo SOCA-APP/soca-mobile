@@ -14,12 +14,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     private val viewModel by lazy { RegisterViewModel() }
     private lateinit var progressDialog: AlertDialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setupProgressDialog()
-    }
-
     override fun init() {
+        setupProgressDialog()
         with(binding) {
             tvBackToLogin.setOnClickListener { finish() }
             btnRegister.setOnClickListener { doRegister() }

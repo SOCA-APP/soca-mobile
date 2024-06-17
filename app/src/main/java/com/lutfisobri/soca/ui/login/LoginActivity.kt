@@ -1,6 +1,5 @@
 package com.lutfisobri.soca.ui.login
 
-import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.lutfisobri.soca.R
 import com.lutfisobri.soca.data.preference.auth.AuthPreference
@@ -16,12 +15,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private val viewModel by lazy { LoginViewModel(AuthPreference(this)) }
     private lateinit var progressDialog: AlertDialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setupProgressDialog()
-    }
-
     override fun init() {
+        setupProgressDialog()
         with(binding) {
             tvCreateAccount.setOnClickListener { navTo(RegisterActivity::class.java) }
             btnLogin.setOnClickListener { doLogin() }

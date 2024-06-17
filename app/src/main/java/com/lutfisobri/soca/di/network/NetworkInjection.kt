@@ -1,5 +1,6 @@
 package com.lutfisobri.soca.di.network
 
+import com.lutfisobri.soca.BuildConfig
 import com.lutfisobri.soca.data.preference.auth.AuthPreference
 import com.lutfisobri.soca.data.service.api.canvas.CanvasService
 import com.lutfisobri.soca.utils.retrofit.HeaderInterceptor
@@ -8,10 +9,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class NetworkInjection(private val authPreference: AuthPreference? = null) {
-    private val baseUrl = "http://10.0.2.2:3000/"
-
     private val builder = Retrofit.Builder()
-        .baseUrl(baseUrl)
+        .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
 
     private fun client(timeout: Long? = null): OkHttpClient {

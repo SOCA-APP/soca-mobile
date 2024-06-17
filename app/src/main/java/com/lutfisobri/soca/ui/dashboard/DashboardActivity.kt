@@ -1,6 +1,5 @@
 package com.lutfisobri.soca.ui.dashboard
 
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AlertDialog
@@ -20,12 +19,6 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
     private val authPreference by lazy { AuthPreference(this) }
     private val viewModel by lazy { DashboardViewModel(authPreference) }
     private var loadingDialog: AlertDialog? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(ActivityDashboardBinding.inflate(layoutInflater).root)
-        init()
-    }
 
     override fun init() {
         itemMenus = listOf(
