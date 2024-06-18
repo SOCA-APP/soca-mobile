@@ -32,10 +32,9 @@ class CanvasActivity : BaseActivity<ActivityCanvasBinding>() {
             predict.setOnClickListener { predict() }
         }
 
-        viewModel.predict.observe(this) { result ->
+        viewModel.predict.observe(this) {
             dismissProgressDialog()
-            val resultMessage = result.toString()
-            showPredictionDialog(resultMessage)
+            navTo(ResultActivity::class.java, it)
         }
     }
 
@@ -74,16 +73,5 @@ class CanvasActivity : BaseActivity<ActivityCanvasBinding>() {
 
     private fun dismissProgressDialog() {
         progressDialog.dismiss()
-    }
-
-    private fun showPredictionDialog(message: String) {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.prediction_title))
-            .setMessage(message)
-            .setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-                navTo(ResultActivity::class.java)
-            }
-            .show()
     }
 }

@@ -1,7 +1,6 @@
 package com.lutfisobri.soca.ui.register
 
 import android.app.AlertDialog
-import android.os.Bundle
 import com.lutfisobri.soca.R
 import com.lutfisobri.soca.databinding.ActivityRegisterBinding
 import com.lutfisobri.soca.ui.BaseActivity
