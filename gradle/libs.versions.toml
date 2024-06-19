@@ -16,6 +16,7 @@ constraintlayout = "2.1.4"
 loggingInterceptor = "4.12.0"
 retrofit = "2.9.0"
 glide = "4.16.0"
+swiperefreshlayoutVersion = "1.1.0"
 ucrop = "2.2.9"
 lifecycleViewmodelKtx = "2.8.1"
 fragmentKtx = "1.7.1"
@@ -24,6 +25,7 @@ fragmentKtx = "1.7.1"
 android-signaturepad = { module = "com.github.prologapp:android-signaturepad", version.ref = "androidSignaturepad" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayoutVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

@@ -71,6 +71,8 @@ dependencies {
 
     // glide
     implementation(libs.glide)
+    // progress bar
+    implementation(libs.androidx.swiperefreshlayout)
 
     // jwt
     implementation(libs.jwtdecode)

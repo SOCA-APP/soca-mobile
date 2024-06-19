@@ -1,7 +1,9 @@
 package com.lutfisobri.soca.ui.dashboard
 
+import android.app.Dialog
 import android.os.Handler
 import android.os.Looper
+import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import com.lutfisobri.soca.R
 import com.lutfisobri.soca.data.models.ItemMenuModel
@@ -79,53 +81,28 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
     private fun onGalleryClick() {}
 
     private fun onCanvasClick() {
-        showLoadingDialog(getString(R.string.loading_canvas))
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            navTo(CanvasActivity::class.java)
-            hideLoadingDialog()
-        }, 1500)
+        navTo(CanvasActivity::class.java)
     }
 
     private fun onHistoryClick() {
-        showLoadingDialog(getString(R.string.loading_history))
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            navTo(HistoryActivity::class.java)
-            hideLoadingDialog()
-        }, 1500)
+        navTo(HistoryActivity::class.java)
     }
 
     private fun onFavoriteClick() {
-        showLoadingDialog(getString(R.string.loading_favorite))
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            navTo(FavoriteActivity::class.java)
-            hideLoadingDialog()
-        }, 1500)
+        navTo(FavoriteActivity::class.java)
     }
 
     private fun showLogoutDialog() {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.logout))
-            .setMessage(getString(R.string.logout_message))
-            .setPositiveButton(getString(R.string.logout_yes)) { dialog, _ ->
-                dialog.dismiss()
-                performLogout()
-            }
-            .setNegativeButton(getString(R.string.logout_cancel)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
-    }
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_logout)
+        dialog.show()
 
-    private fun performLogout() {
-        showLoadingDialog(getString(R.string.loading_logout))
-
-        Handler(Looper.getMainLooper()).postDelayed({
+        dialog.findViewById<Button>(R.id.btnLogout)?.setOnClickListener {
             viewModel.logout()
-            hideLoadingDialog()
             navToFinish(LoginActivity::class.java)
-        }, 1500)
+        }
+        dialog.findViewById<Button>(R.id.btnCancel)?.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 }
