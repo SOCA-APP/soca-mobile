@@ -106,6 +106,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             if (isError) {
                 return
             }
+            
             showProgressDialog()
             viewModel.login(email, password)
         }
