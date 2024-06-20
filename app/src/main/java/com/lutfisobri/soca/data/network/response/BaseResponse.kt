@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 abstract class BaseResponse{
     @field:SerializedName("status")
-    val status: Int = 0
+    var status: Int = 0
 
     @field:SerializedName("message")
-    val message: String? = null
+    var message: String? = null
 }

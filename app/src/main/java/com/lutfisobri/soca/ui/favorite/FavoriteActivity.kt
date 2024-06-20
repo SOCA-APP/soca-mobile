@@ -7,6 +7,7 @@ import com.lutfisobri.soca.data.preference.auth.AuthPreference
 import com.lutfisobri.soca.databinding.ActivityFavoriteBinding
 import com.lutfisobri.soca.ui.BaseActivity
 import com.lutfisobri.soca.ui.result.ResultActivity
+import com.lutfisobri.soca.utils.exceptions.UnauthorizedException
 import com.lutfisobri.soca.utils.gone
 import com.lutfisobri.soca.utils.visible
 
@@ -26,6 +27,11 @@ class FavoriteActivity : BaseActivity<ActivityFavoriteBinding>() {
                     binding.progressBar.gone()
                     if (adapter.itemCount < 1) {
                         binding.tvNoData.visible()
+                    }
+                } else if (loadState.refresh is LoadState.Error) {
+                    val error = loadState.refresh as LoadState.Error
+                    if (error.error is UnauthorizedException) {
+                        handleError((error.error as UnauthorizedException).response)
                     }
                 }
             }

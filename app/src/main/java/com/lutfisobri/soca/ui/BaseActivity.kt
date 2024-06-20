@@ -1,12 +1,18 @@
 package com.lutfisobri.soca.ui
 
+import android.app.ActivityOptions
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.graphics.translationMatrix
 import androidx.viewbinding.ViewBinding
 import com.lutfisobri.soca.R
+import com.lutfisobri.soca.data.network.response.BaseResponse
+import com.lutfisobri.soca.data.preference.auth.AuthPreference
+import com.lutfisobri.soca.ui.login.LoginActivity
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<T: ViewBinding>: AppCompatActivity() {
@@ -39,7 +45,7 @@ abstract class BaseActivity<T: ViewBinding>: AppCompatActivity() {
     protected fun <T: Parcelable> navTo(clazz: Class<*>, args: T) {
         val intent = android.content.Intent(this, clazz)
         intent.putExtra("args", args)
-        startActivity(intent)
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
     }
 
     protected fun <T: Parcelable> getArgs(): T? {
@@ -49,6 +55,12 @@ abstract class BaseActivity<T: ViewBinding>: AppCompatActivity() {
     protected fun navToFinish(clazz: Class<*>) {
         navTo(clazz)
         finish()
+    }
+
+    private fun navNewTask(clazz: Class<*>) {
+        val intent = android.content.Intent(this, clazz)
+        intent.flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
     }
 
     protected fun appBar(title: String, menu: Int? = null): Toolbar {
@@ -62,5 +74,27 @@ abstract class BaseActivity<T: ViewBinding>: AppCompatActivity() {
                 inflateMenu(menu)
             }
         }
+    }
+
+    protected fun <T: BaseResponse> handleError(response: T): Boolean {
+        if (response.status == 401) {
+            showDialog()
+            return true
+        }
+        return false
+    }
+
+    private fun showDialog() {
+        val authPreference = AuthPreference(this)
+        AlertDialog.Builder(this)
+            .setTitle("Error")
+            .setMessage("Sesi berakhir, silahkan login kembali")
+            .setPositiveButton("OK") { dialog, _ ->
+//                authPreference.clearToken()
+                dialog.dismiss()
+                navNewTask(LoginActivity::class.java)
+            }
+            .setCancelable(false)
+            .show()
     }
 }

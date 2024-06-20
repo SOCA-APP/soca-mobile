@@ -35,6 +35,7 @@ class ResultActivity : BaseActivity<ActivityResultBinding>() {
             viewModel.detail(item.id)
             viewModel.detail.observe(this@ResultActivity) { detail ->
                 binding.progressBar.gone()
+                if (handleError(detail)) return@observe
                 star.isVisible = true
                 item = detail.data
                 star.setIcon(setIcon(detail.data.isFavorite))

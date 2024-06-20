@@ -23,7 +23,6 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
     }
 
     private fun isLogin(): Boolean {
-        println(AuthPreference(this).getToken())
         return AuthPreference(this).getToken() != null
     }
 }

@@ -2,8 +2,12 @@ package com.lutfisobri.soca.data.paging.history
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.lutfisobri.soca.data.network.response.BaseResponse
+import com.lutfisobri.soca.data.network.response.auth.RegisterResponse
 import com.lutfisobri.soca.data.network.response.history.HistoryResponseResult
 import com.lutfisobri.soca.data.service.api.history.HistoryService
+import com.lutfisobri.soca.utils.exceptions.UnauthorizedException
+import retrofit2.HttpException
 
 class HistoryPagingSource(
     private val historyService: HistoryService,
@@ -26,7 +30,15 @@ class HistoryPagingSource(
                 nextKey = if (response.data.isEmpty()) null else nextPageNumber + 1
             )
         } catch (e: Exception) {
-            LoadResult.Error(e)
+            val response = RegisterResponse()
+            if (e is HttpException) {
+                response.status = e.code()
+                response.message = e.message()
+            } else {
+                response.status = 500
+                response.message = e.message
+            }
+            LoadResult.Error(UnauthorizedException(response))
         }
     }
 

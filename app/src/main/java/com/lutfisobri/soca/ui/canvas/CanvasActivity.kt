@@ -35,7 +35,7 @@ class CanvasActivity : BaseActivity<ActivityCanvasBinding>() {
             }
             error.observe(this@CanvasActivity) {
                 dismissProgressDialog()
-                showDialog()
+                if (!handleError(it)) showDialog()
             }
             api.observe(this@CanvasActivity) {
                 dismissProgressDialog()
