@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.lutfisobri.soca.data.network.response.history.HistoryResponseResult
 import com.lutfisobri.soca.databinding.ItemResultBinding
 
-class HistoryAdapter: PagingDataAdapter<HistoryResponseResult, HistoryAdapter.ViewHolder>(DIFF_CALLBACK) {
+class HistoryAdapter(private val circularProgressDrawable: CircularProgressDrawable): PagingDataAdapter<HistoryResponseResult, HistoryAdapter.ViewHolder>(DIFF_CALLBACK) {
     var onItemClick: (HistoryResponseResult) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,14 +20,15 @@ class HistoryAdapter: PagingDataAdapter<HistoryResponseResult, HistoryAdapter.Vi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val items = getItem(position)
-        if (items != null) holder.bind(items, onItemClick)
+        if (items != null) holder.bind(items, circularProgressDrawable, onItemClick)
     }
 
     class ViewHolder(private val binding: ItemResultBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: HistoryResponseResult, onItemClick: (HistoryResponseResult) -> Unit) {
+        fun bind(item: HistoryResponseResult, circularProgressDrawable: CircularProgressDrawable, onItemClick: (HistoryResponseResult) -> Unit) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(item.image)
+                    .placeholder(circularProgressDrawable)
                     .into(ivIcon)
                 tvTitle.text = item.label
                 root.setOnClickListener { onItemClick.invoke(item) }

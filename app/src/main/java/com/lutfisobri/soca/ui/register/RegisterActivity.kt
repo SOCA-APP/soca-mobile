@@ -150,7 +150,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
             .setMessage(getString(R.string.register_success_message))
             .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
-                navTo(LoginActivity::class.java)
+                navToFinish(LoginActivity::class.java)
             }
             .show()
     }

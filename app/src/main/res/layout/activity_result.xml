@@ -13,6 +13,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:visibility="visible"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/blue"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

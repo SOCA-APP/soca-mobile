@@ -57,6 +57,20 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 }
             })
         }
+        with(viewModel) {
+            login.observe(this@LoginActivity) {
+                dismissProgressDialog()
+                showSuccessDialog()
+            }
+            error.observe(this@LoginActivity) {
+                dismissProgressDialog()
+                showErrorDialog(getString(R.string.login_error_message_invalid_credentials))
+            }
+            apiError.observe(this@LoginActivity) {
+                dismissProgressDialog()
+                showErrorDialog(getString(R.string.login_error_message_generic))
+            }
+        }
     }
 
     private fun doLogin() {
@@ -92,24 +106,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             if (isError) {
                 return
             }
-
+            
             showProgressDialog()
             viewModel.login(email, password)
-        }
-
-        with(viewModel) {
-            login.observe(this@LoginActivity) {
-                dismissProgressDialog()
-                showSuccessDialog()
-            }
-            error.observe(this@LoginActivity) {
-                dismissProgressDialog()
-                showErrorDialog(getString(R.string.login_error_message_invalid_credentials))
-            }
-            apiError.observe(this@LoginActivity) {
-                dismissProgressDialog()
-                showErrorDialog(getString(R.string.login_error_message_generic))
-            }
         }
     }
 

@@ -67,4 +67,6 @@
     <string name="ya">Ya</string>
     <string name="cancel">Tidak</string>
     <string name="loading">loading</string>
+    <string name="data_favorite_empty">Data favorite tidak ada</string>
+    <string name="data_history_empty">Data history tidak ada</string>
 </resources>

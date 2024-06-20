@@ -18,13 +18,9 @@ class CanvasActivity : BaseActivity<ActivityCanvasBinding>() {
     private val viewModel by lazy { CanvasViewModel(AuthPreference(this)) }
     private lateinit var progressDialog: AlertDialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setupProgressDialog()
-    }
-
     override fun init() {
         appBar(getString(R.string.canvas))
+        setupProgressDialog()
 
         with(binding) {
             btnClear.setOnClickListener { signaturePad.clear() }
@@ -32,20 +28,28 @@ class CanvasActivity : BaseActivity<ActivityCanvasBinding>() {
             predict.setOnClickListener { predict() }
         }
 
-        viewModel.predict.observe(this) {
-            dismissProgressDialog()
-            navTo(ResultActivity::class.java, it)
+        with(viewModel) {
+            predict.observe(this@CanvasActivity) { result ->
+                dismissProgressDialog()
+                navTo(ResultActivity::class.java, result)
+            }
+            error.observe(this@CanvasActivity) {
+                dismissProgressDialog()
+                showDialog()
+            }
+            api.observe(this@CanvasActivity) {
+                dismissProgressDialog()
+                showDialog()
+            }
         }
     }
 
     private fun predict() {
         showProgressDialog()
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val bitmap = binding.signaturePad.signatureBitmap
-            val file = saveBitmapToFile(bitmap)
-            viewModel.predict(file)
-        }, 2000)
+        val bitmap = binding.signaturePad.signatureBitmap
+        val file = saveBitmapToFile(bitmap)
+        viewModel.predict(file)
     }
 
     private fun saveBitmapToFile(bitmap: Bitmap): Uri {
@@ -73,5 +77,15 @@ class CanvasActivity : BaseActivity<ActivityCanvasBinding>() {
 
     private fun dismissProgressDialog() {
         progressDialog.dismiss()
+    }
+
+    private fun showDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.prediction_title))
+            .setMessage("Gagal memprediksi gambar, silahkan coba lagi.")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }
