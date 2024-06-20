@@ -9,9 +9,18 @@ import androidx.core.view.WindowInsetsCompat
 import com.lutfisobri.soca.R
 
 @SuppressLint("CustomSplashScreen")
-class SplashScreenActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
+class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
+    override fun init() {
+        lifecycleScope.launch {
+            delay(3000)
+            if (isLogin())
+                navToFinish(DashboardActivity::class.java)
+            else
+            navToFinish(LoginActivity::class.java)
+        }
+    }
+
+    private fun isLogin(): Boolean {
+        return AuthPreference(this).getToken() != null
     }
 }
